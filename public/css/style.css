@@ -1,0 +1,25 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+table {
+    width: 100%;
+}
+
+tr{
+    text-align: center;
+}
+
+td{
+    font-size: 14px;
+    text-align: center;
+
+}
+
+.form_create {
+    margin-top: 30px;
+    margin-left: 200px;
+    margin-bottom: 20px;
+}
+
