@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ClienteRequest extends FormRequest
 {
@@ -23,30 +24,20 @@ class ClienteRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required|min:3',
-            'cpf' => 'required',
+            'cpf' => ['required', Rule::unique('clientes', 'cpf')->ignore($this->segment(2))],
             'rg' => 'required_if:state_birth,SP',
             'birth_date' => 'required',
-            // 'birth_date' => 'required|date|after_or_equal:'.now()->addYears()->format("Y-m-d"),
+            'birth_date' => 'required|date',
             'phone_number' => 'required',
             'state_birth' => 'required'
         ];
 
-        // if(request()->get('state_birth') == 'BA') {
-        //     $rules['birth_date'] = 'required|date|before_or_equal:'.now()->subYears(18)->format("Y-m-d").'after_or_equal:'.now()->addYears()->format("Y-m-d");
-        // }
-    }
+        if($this->get('state_birth') == 'BA') {
+            $rules['birth_date'] = 'required|date|before_or_equal:'.now()->subYears(18)->format("Y-m-d");
+        }
 
-    public function messages()
-    {
-        return [
-            'name.required' => 'Você não informou o nome',
-            'cpf.required' => 'Você não informou o cpf',
-            'rg.required' => 'Você não informou o rg',
-            'birth_date.required' => 'Você não informou a data de nascimento',
-            'phone_number.required' => 'Você não informou o número do seu telefone',
-            'state_birth.required' => 'Você não informou o seu estado de nascimento'
-        ];
+        return $rules;
     }
 }

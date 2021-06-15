@@ -23,7 +23,7 @@
 
                     <div class="col-md-3">
                         <input type="hidden" name="action" value="search">
-                        <button type="submit" class="btn btn-primary">Filtrar</button>
+                        <button type="submit" class="btn btn-dark">Filtrar</button>
                         <a class="btn btn-warning" href="/cliente">Limpar</a>
                     </div>
                 </form>

@@ -16,14 +16,18 @@ class CreateClientesTable extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('cpf');
-            $table->string('rg');
-            $table->string('user_register');
-            $table->string('user_update')->nullable();
+            $table->string('cpf')->unique();
+            $table->string('rg')->nullable();
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->date('birth_date');
             $table->string('phone_number');
             $table->string('state_birth');
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
         });
     }
 

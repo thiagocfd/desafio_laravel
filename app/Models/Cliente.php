@@ -4,21 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cliente extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'cpf', 'rg','user_register', 'user_update', 'birth_date', 'phone_number', 'state_birth'];
+    protected $fillable = ['name', 'cpf', 'rg','created_by', 'updated_by', 'birth_date', 'phone_number', 'state_birth'];
 
-    protected $casts = [
-        'birth_date' => 'datetime',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
-    ];
+    protected $dates = ['birth_date'];
 
-    public function getCpfAttribute(){
-
+    public function getCpfAttribute()
+    {
         $cpf = $this->attributes['cpf'];
         $cpf = str_replace('.', '', $cpf);
         $cpf = str_replace('-', '', $cpf);
@@ -26,14 +23,13 @@ class Cliente extends Model
         return $cpf;
     }
 
-    public function getRgAttribute(){
-
-        $rg = $this->attributes['rg'];
-        $rg = str_replace('.', '', $rg);
-        $rg = str_replace('-', '', $rg);
-
-        return $rg;
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
-
+    public function updater()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }

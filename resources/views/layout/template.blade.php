@@ -22,7 +22,10 @@
                 <a class="nav-link" {{(request()->segment(1)  === 'cliente') ? 'active' : ''}} href="{{route('cliente.index')}}">Clientes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" {{(request()->segment(1)  === 'user') ? 'active' : ''}} href="/user">Usuários</a>
+                <a class="nav-link" {{(request()->segment(1)  === 'user') ? 'active' : ''}} href="{{route('user.index')}}">Usuários</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" {{(request()->segment(1)  === 'user') ? 'active' : ''}} href="{{route('user.changePassword')}}">Atualizar senha</a>
               </li>
               <li>
                 <form method="POST" action="{{ route('logout') }}">

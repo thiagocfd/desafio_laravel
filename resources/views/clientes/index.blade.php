@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md d-flex justify-content-between align-items-center">
             <h1>Listagem de Clientes</h1>
-            <a href="{{route('cliente.create')}}" class="btn btn-primary">Cadastrar novo</a>
+            <a href="{{route('cliente.create')}}" class="btn btn-success">Cadastrar novo</a>
         </div>
     </div>
 
@@ -36,8 +36,8 @@
                   <td scope="col">{{ $cliente->rg }}</td>
                   <td scope="col">{{ $cliente->created_at->format('d/m/Y h:m:s') }}</td>
                   <td scope="col">{{ $cliente->updated_at->format('d/m/Y h:m:s') }}</td>
-                  <td scope="col">{{ $cliente->user_register }}</td>
-                  <td scope="col">{{ $cliente->user_update }}</td>
+                  <td scope="col">{{ $cliente->creator->name ?? '' }}</td>
+                  <td scope="col">{{ $cliente->updater->name ?? '' }}</td>
                   <td scope="col">{{ $cliente->birth_date->format('d/m/Y') }}</td>
                   <td scope="col">{{ $cliente->phone_number }}</td>
                   <td scope="col">{{ $cliente->state_birth }}</td>
@@ -51,7 +51,6 @@
             </tbody>
         </table>
     </div>
-
 
     <div class="mt=5">
         {{ $clientes->appends(['keyword'=>request()->get('keyword')])->links() }}

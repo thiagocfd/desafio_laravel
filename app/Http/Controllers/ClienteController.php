@@ -17,7 +17,6 @@ class ClienteController extends Controller
      */
     public function index()
     {
-
         $clientes = Cliente::orderBy('name', 'asc')->paginate(10);
 
         return view('clientes.index', compact('clientes'));
@@ -48,17 +47,11 @@ class ClienteController extends Controller
      */
     public function store(ClienteRequest $request)
     {
-
-
-        // try {
-            $data = $request->all();
-            $data['user_register']=auth()->user()->name;
-            $cliente = new Cliente();
-            $cliente->create($data);
-            $request->session()->flash('success', 'Registro gravado com sucesso!');
-        // } catch (\Exception $e) {
-        //     $request->session()->flash('error', 'Ocorreu um erro ao tentar gravar esses dados!');
-        // }
+        $data = $request->all();
+        $data['created_by'] = auth()->user()->id;
+        $cliente = new Cliente();
+        $cliente->create($data);
+        $request->session()->flash('success', 'Registro gravado com sucesso!');
 
         return redirect()->back();
     }
@@ -82,8 +75,6 @@ class ClienteController extends Controller
      */
     public function edit(Request $request, Cliente $cliente)
     {
-
-
         return view('clientes.edit', compact('cliente'));
     }
 
@@ -96,17 +87,12 @@ class ClienteController extends Controller
      */
     public function update(ClienteRequest $request, Cliente $cliente)
     {
-        try {
-            $data = $request->all();
-            $cliente->update($data);
-            $data['user_update']=auth()->user()->name;
-            $request->session()->flash('success', 'Registro atualizado com sucesso!');
-        } catch (\Exception $e) {
-            $request->session()->flash('error', 'Ocorreu um erro ao tentar atualizar esses dados!');
-        }
+        $data = $request->all();
+        $data['updated_by'] = auth()->user()->id;
+        $cliente->update($data);
+        $request->session()->flash('success', 'Registro atualizado com sucesso!');
 
         return redirect()->back();
-
     }
 
     /**
@@ -117,14 +103,9 @@ class ClienteController extends Controller
      */
     public function destroy(Request $request, Cliente $cliente)
     {
-        try {
-            $cliente->delete();
-
-            $request->session()->flash('success', 'Registro excluído com sucesso!');
-        } catch (\Exception $e) {
-            $request->session()->flash('error', 'Ocorreu um erro ao tentar excluir esses dados!');
-        }
-
+        $cliente->delete();
+        $request->session()->flash('success', 'Registro excluído com sucesso!');
+        
         return redirect()->back();
     }
 }

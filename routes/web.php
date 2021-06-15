@@ -19,20 +19,14 @@ Route::get('/', function () {
     return redirect()->route('cliente.index');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
-
 require __DIR__.'/auth.php';
 
-// Route::any('/register', function() {
-//     return redirect()->route('cliente.index');
-// });
 
 Route::middleware(['auth'])->group(function() {
+    Route::get('/user/change-password', [UserController::class, 'changePassword'])->name('user.changePassword');
+    Route::put('/user/change-password', [UserController::class, 'changePasswordUpdate'])->name('user.changePasswordUpdate');
     Route::resource('/user', UserController::class);
-    // Route::get('/user', [UserController::class, 'index']);
-    Route::resource('cliente', ClienteController::class);
+    Route::resource('/cliente', ClienteController::class);
 });
 
 Route::get('/search', [ClienteController::class, 'search'])->name('cliente.search');

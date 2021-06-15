@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-md d-flex justify-content-between align-items-center">
         <h1>Listagem de Usuários</h1>
-        <a href="{{route('user.create')}}" class="btn btn-primary">Cadastrar novo</a>
+        <a href="{{route('user.create')}}" class="btn btn-success">Cadastrar novo</a>
     </div>
 </div>
 
@@ -28,13 +28,11 @@
                 <a class="btn btn-primary btn-sm" href="{{route('user.edit', $user->id)}}">Editar</a>
                 <a class="btn btn-danger btn-sm" onclick="deleteInDatabase('{{route('user.destroy', $user->id)}}', '{{$user->id}}')">Excluir</a>
               </td>
-
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
-
 
 <div class="mt=5">
     {{ $users->appends(['keyword'=>request()->get('keyword')])->links() }}
