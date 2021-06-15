@@ -19,7 +19,7 @@ class CreateClientesTable extends Migration
             $table->string('cpf');
             $table->string('rg');
             $table->string('user_register');
-            $table->string('user_update');
+            $table->string('user_update')->nullable();
             $table->date('birth_date');
             $table->string('phone_number');
             $table->string('state_birth');

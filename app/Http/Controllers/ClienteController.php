@@ -50,15 +50,15 @@ class ClienteController extends Controller
     {
 
 
-        try {
+        // try {
             $data = $request->all();
             $data['user_register']=auth()->user()->name;
             $cliente = new Cliente();
             $cliente->create($data);
             $request->session()->flash('success', 'Registro gravado com sucesso!');
-        } catch (\Exception $e) {
-            $request->session()->flash('error', 'Ocorreu um erro ao tentar gravar esses dados!');
-        }
+        // } catch (\Exception $e) {
+        //     $request->session()->flash('error', 'Ocorreu um erro ao tentar gravar esses dados!');
+        // }
 
         return redirect()->back();
     }

@@ -9,7 +9,7 @@ class Cliente extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'cpf', 'rg','user_register','user_update', 'birth_date', 'phone_number', 'state_birth'];
+    protected $fillable = ['name', 'cpf', 'rg','user_register', 'user_update', 'birth_date', 'phone_number', 'state_birth'];
 
     protected $casts = [
         'birth_date' => 'datetime',

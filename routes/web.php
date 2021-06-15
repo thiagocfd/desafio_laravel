@@ -35,3 +35,5 @@ Route::middleware(['auth'])->group(function() {
 });
 
 Route::get('/search', [ClienteController::class, 'search'])->name('cliente.search');
+
+
