@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,11 +15,53 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
-    public function search(Request $request)
+    public function create()
     {
-        $users = User::where('name', 'like', '%' . $request->get('keyword') . '%')->orderBy('created_at', 'desc')->paginate(10);
+        return view('users.create');
+    }
 
-        return view('users.index', compact('users'));
+    public function store(Request $request)
+    {
+
+            $data = $request->all();
+            $user = new User();
+            $user->create($data);
+            $request->session()->flash('success', 'Registro gravado com sucesso!');
+
+
+        return redirect()->back();
+    }
+
+    public function show(User $user)
+    {
+        //
+    }
+
+    public function edit(Request $request, User $user)
+    {
+
+
+        return view('users.edit', compact('user'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $data = $request->all();
+        $user->update($data);
+        $request->session()->flash('success', 'Registro atualizado com sucesso!');
+
+        return redirect()->back();
+
+    }
+
+    public function destroy(Request $request, User $user)
+    {
+
+        $user->delete();
+
+        $request->session()->flash('success', 'Registro excluído com sucesso!');
+
+        return redirect()->back();
     }
 
 

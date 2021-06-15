@@ -30,10 +30,12 @@ require __DIR__.'/auth.php';
 // });
 
 Route::middleware(['auth'])->group(function() {
-    Route::get('/user', [UserController::class, 'index']);
+    Route::resource('/user', UserController::class);
+    // Route::get('/user', [UserController::class, 'index']);
     Route::resource('cliente', ClienteController::class);
 });
 
 Route::get('/search', [ClienteController::class, 'search'])->name('cliente.search');
+
 
 

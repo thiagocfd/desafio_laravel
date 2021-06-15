@@ -62,7 +62,7 @@
             <div class="mb-3">
                 <label for="state_birth" class="form-label">Estado de nascimento</label>
                 <select name="state_birth" id="state_birth" class="form-select" >
-                    <option>BA</option>
+                    <option >BA</option>
                     <option>SP</option>
                 </select>
             </div>
@@ -70,11 +70,27 @@
         <div class="row">
         <div class="col-md">
             <hr>
-            <button type="submit" class="btn btn-primary">Registrar cliente</button>
+            <button type="submit" class="btn btn-primary" id="btn_cliente">Registrar cliente</button>
         </div>
         </div>
     </div>
 </form>
+
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script>
+
+    $('#btn_cliente').click(function(){
+        let estado = $('#state_birth').val();
+        if(estado == 'SP'){
+            document.getElementById("rg").required = true;
+        }
+        else{
+            document.getElementById("rg").required = false;
+            }
+        }
+    })
+
+</script>
 
 @endsection
 

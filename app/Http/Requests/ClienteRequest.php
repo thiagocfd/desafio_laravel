@@ -26,11 +26,16 @@ class ClienteRequest extends FormRequest
         return [
             'name' => 'required|min:3',
             'cpf' => 'required',
-            'rg' => 'required',
+            'rg' => 'required_if:state_birth,SP',
             'birth_date' => 'required',
+            // 'birth_date' => 'required|date|after_or_equal:'.now()->addYears()->format("Y-m-d"),
             'phone_number' => 'required',
             'state_birth' => 'required'
         ];
+
+        // if(request()->get('state_birth') == 'BA') {
+        //     $rules['birth_date'] = 'required|date|before_or_equal:'.now()->subYears(18)->format("Y-m-d").'after_or_equal:'.now()->addYears()->format("Y-m-d");
+        // }
     }
 
     public function messages()
